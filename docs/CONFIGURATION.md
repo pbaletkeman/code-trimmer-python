@@ -2,6 +2,22 @@
 
 Code Trimmer supports configuration via YAML files, JSON files, environment variables, and CLI options.
 
+## Table of Contents
+
+- [Configuration Priority](#configuration-priority)
+- [Configuration File](#configuration-file)
+  - [YAML Format (Recommended)](#yaml-format-recommended)
+  - [JSON Format](#json-format)
+- [Configuration Options](#configuration-options)
+  - [File Filtering](#file-filtering)
+  - [Whitespace Rules](#whitespace-rules)
+  - [Performance Limits](#performance-limits)
+  - [Operation Modes](#operation-modes)
+  - [Output Options](#output-options)
+- [Environment Variables](#environment-variables)
+- [Custom Rules](#custom-rules)
+  - [Rule Fields](#rule-fields)
+
 ## Configuration Priority
 
 Configuration sources are applied in this order (highest priority first):
@@ -31,7 +47,7 @@ codetrimmer:
   trim-trailing-whitespace: true
 
   # Performance limits
-  max-file-size: 5242880  # 5MB in bytes
+  max-file-size: 5242880 # 5MB in bytes
   max-files: 50
   no-limits: false
 
@@ -73,44 +89,44 @@ Create `.codetrimmer.json`:
 
 ### File Filtering
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `include` | string | `*` | File glob pattern to include |
-| `exclude` | string | (empty) | File glob pattern to exclude |
-| `include-hidden` | bool | false | Include hidden files |
-| `follow-symlinks` | bool | false | Follow symbolic links |
+| Option            | Type   | Default | Description                  |
+| ----------------- | ------ | ------- | ---------------------------- |
+| `include`         | string | `*`     | File glob pattern to include |
+| `exclude`         | string | (empty) | File glob pattern to exclude |
+| `include-hidden`  | bool   | false   | Include hidden files         |
+| `follow-symlinks` | bool   | false   | Follow symbolic links        |
 
 ### Whitespace Rules
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `max-consecutive-blank-lines` | int | 2 | Maximum consecutive blank lines |
-| `ensure-final-newline` | bool | true | Ensure file ends with newline |
-| `trim-trailing-whitespace` | bool | true | Trim trailing whitespace |
+| Option                        | Type | Default | Description                     |
+| ----------------------------- | ---- | ------- | ------------------------------- |
+| `max-consecutive-blank-lines` | int  | 2       | Maximum consecutive blank lines |
+| `ensure-final-newline`        | bool | true    | Ensure file ends with newline   |
+| `trim-trailing-whitespace`    | bool | true    | Trim trailing whitespace        |
 
 ### Performance Limits
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `max-file-size` | int | 5242880 | Max file size in bytes (5MB) |
-| `max-files` | int | 50 | Max files to process |
-| `no-limits` | bool | false | Disable all limits |
+| Option          | Type | Default | Description                  |
+| --------------- | ---- | ------- | ---------------------------- |
+| `max-file-size` | int  | 5242880 | Max file size in bytes (5MB) |
+| `max-files`     | int  | 50      | Max files to process         |
+| `no-limits`     | bool | false   | Disable all limits           |
 
 ### Operation Modes
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `dry-run` | bool | false | Preview without modifying |
-| `create-backups` | bool | true | Create `.bak` backup files |
-| `fail-fast` | bool | false | Stop on first error |
+| Option           | Type | Default | Description                |
+| ---------------- | ---- | ------- | -------------------------- |
+| `dry-run`        | bool | false   | Preview without modifying  |
+| `create-backups` | bool | true    | Create `.bak` backup files |
+| `fail-fast`      | bool | false   | Stop on first error        |
 
 ### Output Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `verbose` | bool | false | Detailed output |
-| `quiet` | bool | false | Minimal output |
-| `no-color` | bool | false | Disable colored output |
+| Option     | Type | Default | Description            |
+| ---------- | ---- | ------- | ---------------------- |
+| `verbose`  | bool | false   | Detailed output        |
+| `quiet`    | bool | false   | Minimal output         |
+| `no-color` | bool | false   | Disable colored output |
 
 ## Environment Variables
 
@@ -135,16 +151,16 @@ codetrimmer:
       description: "Remove debug print statements"
 
     - name: "normalize-quotes"
-      pattern: "\"([^\"]*)\""
+      pattern: '"([^"]*)"'
       replacement: "'\\1'"
       description: "Convert double quotes to single"
 ```
 
 ### Rule Fields
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | Yes | Unique rule identifier |
-| `pattern` | Yes | Regex pattern to match |
-| `replacement` | No | Replacement string (empty = remove) |
-| `description` | No | Description of what the rule does |
+| Field         | Required | Description                         |
+| ------------- | -------- | ----------------------------------- |
+| `name`        | Yes      | Unique rule identifier              |
+| `pattern`     | Yes      | Regex pattern to match              |
+| `replacement` | No       | Replacement string (empty = remove) |
+| `description` | No       | Description of what the rule does   |

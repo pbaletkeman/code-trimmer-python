@@ -2,6 +2,15 @@
 
 Complete list of error codes and their solutions.
 
+## Table of Contents
+
+- [Configuration Errors (CT-0001 to CT-0005)](#configuration-errors-ct-0001-to-ct-0005)
+- [File Operation Errors (CT-0010 to CT-0016)](#file-operation-errors-ct-0010-to-ct-0016)
+- [Backup/Restore Errors (CT-0040 to CT-0043)](#backuprestore-errors-ct-0040-to-ct-0043)
+- [Hook Generation Errors (CT-0050 to CT-0052)](#hook-generation-errors-ct-0050-to-ct-0052)
+- [Report Errors (CT-0060 to CT-0063)](#report-errors-ct-0060-to-ct-0063)
+- [General Errors (CT-0090 to CT-0092)](#general-errors-ct-0090-to-ct-0092)
+
 ## Configuration Errors (CT-0001 to CT-0005)
 
 ### CT-0001: Invalid configuration file
@@ -11,6 +20,7 @@ Complete list of error codes and their solutions.
 **Cause:** YAML or JSON syntax error in the configuration file.
 
 **Solution:**
+
 1. Validate YAML syntax using a YAML linter
 2. Check for proper indentation
 3. Ensure all strings are properly quoted
@@ -22,6 +32,7 @@ Complete list of error codes and their solutions.
 **Cause:** The `--config` path points to a non-existent file.
 
 **Solution:**
+
 1. Verify the file path is correct
 2. Check file permissions
 3. Use absolute path if relative path isn't working
@@ -33,6 +44,7 @@ Complete list of error codes and their solutions.
 **Cause:** A numeric value is negative or invalid.
 
 **Solution:**
+
 1. Check that `max-file-size` is non-negative
 2. Check that `max-files` is non-negative
 3. Check that `max-consecutive-blank-lines` is non-negative
@@ -44,6 +56,7 @@ Complete list of error codes and their solutions.
 **Cause:** A rule in the `rules` section is missing required fields.
 
 **Solution:**
+
 1. Ensure each rule has a `name` field
 2. Ensure each rule has a `pattern` field
 3. Check rule field names for typos
@@ -55,6 +68,7 @@ Complete list of error codes and their solutions.
 **Cause:** The `pattern` field contains invalid regex syntax.
 
 **Solution:**
+
 1. Test the regex pattern in a regex tester
 2. Escape special characters properly
 3. Use raw strings in YAML (`pattern: '\s+'`)
@@ -68,6 +82,7 @@ Complete list of error codes and their solutions.
 **Cause:** The directory or file path is invalid.
 
 **Solution:**
+
 1. Verify the path exists
 2. Check for typos in the path
 3. Use absolute paths
@@ -79,6 +94,7 @@ Complete list of error codes and their solutions.
 **Cause:** File encoding issues or read permissions.
 
 **Solution:**
+
 1. Check file permissions
 2. Try specifying file encoding
 3. Verify file is not locked by another process
@@ -90,6 +106,7 @@ Complete list of error codes and their solutions.
 **Cause:** Write permissions or disk space issues.
 
 **Solution:**
+
 1. Check file write permissions
 2. Verify disk has free space
 3. Check if file is read-only
@@ -101,6 +118,7 @@ Complete list of error codes and their solutions.
 **Cause:** User doesn't have required permissions.
 
 **Solution:**
+
 1. Run with appropriate permissions
 2. Check file ownership
 3. Use `sudo` if necessary (with caution)
@@ -112,6 +130,7 @@ Complete list of error codes and their solutions.
 **Cause:** Directory permissions or invalid path.
 
 **Solution:**
+
 1. Check directory permissions
 2. Verify path is a directory, not a file
 3. Check for broken symlinks
@@ -123,6 +142,7 @@ Complete list of error codes and their solutions.
 **Cause:** File is larger than `max-file-size`.
 
 **Solution:**
+
 1. Use `--no-limits` to process large files
 2. Increase `max-file-size` in config
 3. Process the file separately
@@ -134,6 +154,7 @@ Complete list of error codes and their solutions.
 **Cause:** File was detected as binary (contains null bytes).
 
 **Solution:**
+
 - This is expected behavior
 - Binary files are automatically skipped to prevent corruption
 - No action required
@@ -147,6 +168,7 @@ Complete list of error codes and their solutions.
 **Cause:** Disk full or permission issues.
 
 **Solution:**
+
 1. Check available disk space
 2. Verify write permissions
 3. Use `--no-create-backups` if backups not needed
@@ -158,6 +180,7 @@ Complete list of error codes and their solutions.
 **Cause:** File permission or I/O error.
 
 **Solution:**
+
 1. Check file permissions
 2. Verify backup file isn't corrupted
 3. Restore manually if needed
@@ -169,6 +192,7 @@ Complete list of error codes and their solutions.
 **Cause:** The `.bak` file doesn't exist.
 
 **Solution:**
+
 1. Verify backup was created
 2. Check the correct directory
 3. Backups may have been cleaned up
@@ -180,6 +204,7 @@ Complete list of error codes and their solutions.
 **Cause:** Backup file is empty or damaged.
 
 **Solution:**
+
 1. Use version control to restore
 2. Restore from other backup source
 3. Re-process the file
@@ -193,6 +218,7 @@ Complete list of error codes and their solutions.
 **Cause:** I/O error writing hook file.
 
 **Solution:**
+
 1. Check write permissions on `.git/hooks/`
 2. Verify disk space
 3. Create hooks directory manually if missing
@@ -204,6 +230,7 @@ Complete list of error codes and their solutions.
 **Cause:** Not running in a Git repository.
 
 **Solution:**
+
 1. Initialize a Git repository with `git init`
 2. Run from the repository root
 3. Specify correct directory path
@@ -215,6 +242,7 @@ Complete list of error codes and their solutions.
 **Cause:** A pre-commit hook file is already present.
 
 **Solution:**
+
 1. Use `--force` to overwrite
 2. Manually backup existing hook
 3. Merge hooks manually
@@ -228,6 +256,7 @@ Complete list of error codes and their solutions.
 **Cause:** I/O error writing report file.
 
 **Solution:**
+
 1. Check write permissions
 2. Verify disk space
 3. Check output path is valid
@@ -239,6 +268,7 @@ Complete list of error codes and their solutions.
 **Cause:** Invalid `--report` option value.
 
 **Solution:**
+
 1. Use valid format: `json`, `csv`, or `sqlite`
 2. Check for typos
 
@@ -249,6 +279,7 @@ Complete list of error codes and their solutions.
 **Cause:** Network error or invalid URL.
 
 **Solution:**
+
 1. Verify endpoint URL
 2. Check network connectivity
 3. Ensure endpoint accepts POST requests
@@ -260,6 +291,7 @@ Complete list of error codes and their solutions.
 **Cause:** Database file access error.
 
 **Solution:**
+
 1. Check database file permissions
 2. Verify disk space
 3. Ensure path is writable
@@ -273,6 +305,7 @@ Complete list of error codes and their solutions.
 **Cause:** Unhandled exception.
 
 **Solution:**
+
 1. Check the error message for details
 2. Run with `--verbose` for more info
 3. Report bug if reproducible
@@ -284,6 +317,7 @@ Complete list of error codes and their solutions.
 **Cause:** User interrupted with Ctrl+C.
 
 **Solution:**
+
 - No action required
 - Re-run the command to complete
 
@@ -294,6 +328,7 @@ Complete list of error codes and their solutions.
 **Cause:** Disk is full.
 
 **Solution:**
+
 1. Free up disk space
 2. Use `--no-create-backups` to save space
 3. Process fewer files at once

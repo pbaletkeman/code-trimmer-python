@@ -2,6 +2,26 @@
 
 Technical architecture and design of Code Trimmer Python.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Directory Structure](#directory-structure)
+- [Component Diagram](#component-diagram)
+- [Core Components](#core-components)
+  - [ConfigurationLoader](#configurationloader)
+  - [FileProcessingService](#fileprocessingservice)
+  - [FileTrimmer](#filetrimmer)
+  - [BinaryFileDetector](#binaryfiledetector)
+  - [DiffGenerator](#diffgenerator)
+  - [HookGenerator](#hookgenerator)
+  - [UndoService](#undoservice)
+  - [ReportGenerator](#reportgenerator)
+- [Data Flow](#data-flow)
+- [Error Handling](#error-handling)
+- [Configuration Model](#configuration-model)
+- [Testing Strategy](#testing-strategy)
+- [Performance Considerations](#performance-considerations)
+
 ## Overview
 
 Code Trimmer is a file formatting and whitespace normalization utility designed following Python best practices and clean architecture principles.
@@ -47,16 +67,16 @@ graph TD
     CLI[CLI Commands] --> FP[FileProcessingService]
     CLI --> HG[HookGenerator]
     CLI --> US[UndoService]
-    
+
     FP --> CL[ConfigurationLoader]
     FP --> FT[FileTrimmer]
     FP --> BD[BinaryFileDetector]
     FP --> DG[DiffGenerator]
     FP --> RG[ReportGenerator]
-    
+
     FT --> Config[CodeTrimmerConfig]
     CL --> Config
-    
+
     FP --> Stats[ProcessingStatistics]
     FP --> FR[FileProcessingResult]
 ```
@@ -145,7 +165,7 @@ sequenceDiagram
     participant FPS as FileProcessingService
     participant FT as FileTrimmer
     participant FS as FileSystem
-    
+
     User->>CLI: codetrimmer trim .
     CLI->>FPS: process_directory(".")
     FPS->>FS: discover_files()
@@ -188,20 +208,20 @@ classDiagram
         +bool trim_trailing_whitespace
         +List~TrimRule~ rules
     }
-    
+
     class TrimRule {
         +str name
         +str pattern
         +str replacement
         +str description
     }
-    
+
     class CodeTrimmerConfig {
         +str input_directory
         +bool dry_run
         +bool verbose
     }
-    
+
     TrimmerConfig --> TrimRule
     TrimmerConfig --> CodeTrimmerConfig
 ```
