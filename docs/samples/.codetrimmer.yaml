@@ -1,0 +1,69 @@
+# Code Trimmer Sample Configuration
+# Copy this file to your project root as .codetrimmer.yaml
+
+codetrimmer:
+  # File filtering
+  # Glob patterns for files to include (comma-separated)
+  include: "*.{py,js,java,ts,jsx,tsx,md,yaml,yml,json}"
+
+  # Glob patterns for files to exclude
+  exclude: "node_modules/**,*.min.js,*.min.css,dist/**,build/**,venv/**,.git/**"
+
+  # Include hidden files (starting with .)
+  include-hidden: false
+
+  # Follow symbolic links when traversing directories
+  follow-symlinks: false
+
+  # Whitespace rules
+  # Maximum consecutive blank lines allowed
+  max-consecutive-blank-lines: 2
+
+  # Ensure every file ends with a single newline
+  ensure-final-newline: true
+
+  # Trim trailing whitespace from all lines
+  trim-trailing-whitespace: true
+
+  # Performance limits
+  # Maximum file size in bytes (default: 5MB)
+  max-file-size: 5242880
+
+  # Maximum number of files to process
+  max-files: 100
+
+  # Disable all limits (use with caution)
+  no-limits: false
+
+  # Operation modes
+  # Preview changes without modifying files
+  dry-run: false
+
+  # Create .bak backup files before modifying
+  create-backups: true
+
+  # Stop processing on first error
+  fail-fast: false
+
+  # Output options
+  # Show detailed output
+  verbose: false
+
+  # Minimal output
+  quiet: false
+
+  # Disable colored output
+  no-color: false
+
+  # Custom trimming rules (optional)
+  # Each rule applies a regex replacement
+  rules:
+    - name: "remove-trailing-spaces"
+      pattern: '\s+$'
+      replacement: ""
+      description: "Remove trailing whitespace from lines"
+
+    - name: "normalize-line-endings"
+      pattern: '\r\n'
+      replacement: "\n"
+      description: "Convert Windows line endings to Unix"

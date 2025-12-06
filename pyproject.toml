@@ -1,0 +1,111 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codetrimmer"
+version = "1.0.0"
+description = "A file formatting and whitespace normalization utility for source code"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Pete Letkeman", email = "pete@letkeman.ca"}
+]
+keywords = ["code", "trimmer", "whitespace", "formatting", "linting"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Text Processing :: Filters",
+]
+dependencies = [
+    "click>=8.0.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0.0",
+    "colorama>=0.4.6",
+]
+
+[project.optional-dependencies]
+http = [
+    "aiohttp>=3.8.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "coverage>=7.0.0",
+    "flake8>=6.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+codetrimmer = "codetrimmer.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/pbaletkeman/code-trimmer-python"
+Documentation = "https://github.com/pbaletkeman/code-trimmer-python/tree/main/docs"
+Repository = "https://github.com/pbaletkeman/code-trimmer-python"
+Issues = "https://github.com/pbaletkeman/code-trimmer-python/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["codetrimmer*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=codetrimmer --cov-report=term-missing --cov-report=html"
+
+[tool.coverage.run]
+source = ["codetrimmer"]
+omit = ["tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+fail_under = 85
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["codetrimmer"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

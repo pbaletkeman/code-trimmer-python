@@ -1,0 +1,56 @@
+# Sample Custom Rules for Code Trimmer
+# These rules demonstrate various regex-based transformations
+
+# Remove trailing whitespace (built-in, but shown for reference)
+- name: "remove-trailing-spaces"
+  pattern: '\s+$'
+  replacement: ""
+  description: "Remove trailing whitespace from all lines"
+
+# Convert Windows line endings to Unix
+- name: "normalize-crlf"
+  pattern: '\r\n'
+  replacement: "\n"
+  description: "Convert CRLF to LF line endings"
+
+# Remove debug print statements (Python)
+- name: "remove-debug-prints"
+  pattern: 'print\s*\(\s*["\']DEBUG:'
+  replacement: "# DEBUG: "
+  description: "Comment out debug print statements"
+
+# Remove console.log statements (JavaScript)
+- name: "remove-console-logs"
+  pattern: 'console\.log\s*\('
+  replacement: "// console.log("
+  description: "Comment out console.log statements"
+
+# Normalize multiple spaces to single
+- name: "normalize-spaces"
+  pattern: '  +'
+  replacement: " "
+  description: "Replace multiple spaces with single space"
+
+# Remove TODO comments (use with caution)
+- name: "remove-todos"
+  pattern: '//\s*TODO:.*$'
+  replacement: ""
+  description: "Remove TODO comments"
+
+# Fix double semicolons (JavaScript)
+- name: "fix-double-semicolons"
+  pattern: ';;'
+  replacement: ";"
+  description: "Remove duplicate semicolons"
+
+# Remove empty comments
+- name: "remove-empty-comments"
+  pattern: '#\s*$'
+  replacement: ""
+  description: "Remove empty hash comments"
+
+# Standardize import spacing (Python)
+- name: "import-spacing"
+  pattern: 'import\s{2,}'
+  replacement: "import "
+  description: "Normalize spacing after import keyword"
